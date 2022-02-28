@@ -8,73 +8,77 @@
 
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/styles.css">
-    
     <script type="text/javascript" src="js/main.js"></script>
+    
+    
   </head>
   <body>
   
   <header>
     <nav id="navbar">
-      <ul class="nav-list">
+      <ul class="nav-list" border_all="true">
         <li class="nav-item active">
-          <input id="NULL" name="dropdown-group" value="NULL" type="checkbox"  checked onclick="recarrega()">
+          <input id="NULL" name="dropdown-group" value="NULL" type="checkbox"  checked onclick="reload()">
                 Sem Stack definida
               
         </li>
         <li class="nav-item active">
-          <input id="C#" name="dropdown-group" value ="C#" type="checkbox" checked onclick="recarrega()">
+          <input id="C#" name="dropdown-group" value ="C#" type="checkbox" checked onclick="reload()">
           C#
         </li>
  
            
         <ul class="nav-list">
           <li class="nav-item active">
-        <input type="checkbox" name="dropdown-group" id="JAVA" value="JAVA" checked onclick="recarrega()">
+        <input type="checkbox" name="dropdown-group" id="JAVA" value="JAVA" checked onclick="reload()">
                   Java
           </li>
 
 
         <ul class="nav-list">
           <li class="nav-item active">
-            <input type="checkbox" name="dropdown-group" id="RUBY" value="RUBY" checked onclick="recarrega()">
+            <input type="checkbox" name="dropdown-group" id="RUBY" value="RUBY" checked onclick="reload()">
                   RUBY
           </li>
 
         <ul class="nav-list">
           <li class="nav-item active">
-            <input type="checkbox" name="dropdown-group" id="HTML" value="HTML" checked onclick="recarrega()">
+            <input type="checkbox" name="dropdown-group" id="HTML" value="HTML" checked onclick="reload()">
                 HTML
           </li>
 
         <ul class="nav-list">
           <li class="nav-item active">
-            <input type="checkbox" name="dropdown-group" id="CSS" checked onclick="recarrega()">
+            <input type="checkbox" name="dropdown-group" id="CSS" checked onclick="reload()">
                   CSS
           </li>
 
         <ul class="nav-list">
           <li class="nav-item active">
-        <input type="checkbox" name="dropdown-group" id="JAVASCRIPT" value= "JAVASCRIPT" checked onclick="recarrega()">
+        <input type="checkbox" name="dropdown-group" id="JAVASCRIPT" value= "JAVASCRIPT" checked onclick="reload()">
                   JAVASCRIPT 
           </li>
                     </nav>
 
 			<nav id="navbar">
+        
 			 <ul class="nav-list">
             <li class="nav-item active">
-              <input type="checkbox" id="ISSUES" value= "TEM ISSUES"  onclick="recarrega()">
+              <input type="checkbox" id="ISSUES" value= "TEM ISSUES"  onclick="reload()">
               Apenas com issues
             </li> 
+          
             <li class="nav-item active">
-              <input type="checkbox" id="FORK" value= "fork"  onclick="recarrega()">
+              <input type="checkbox" id="FORK" value= "fork"  onclick="reload()">
               Apenas com fork
             </li> 
             <li class="nav-item active">
-              <input type="button" id="ALFABETICA" value= "Ordem Alfabetica"  onclick="ordenarAlfa()">
+              <input type="button" id="ALFABETICA" value= "Ordem Alfabetica"  onclick="orderAlfa()">
             </li> 
             <li class="nav-item active">
-              <input type="button" id="DATA" value= "Ordem por data"  onclick="ordenarData()">
+              <input type="button" id="DATA" value= "Ordem por data"  onclick="orderDate()">
             </li> 
+          
             </nav>
       </header>
 
@@ -85,7 +89,7 @@
 
    
       <div>
-        Pesquisar por: <input type="search" id="pesquisa" oninput="recarrega()"> 
+        Pesquisar por: <input type="search" id="pesquisa" oninput="reload()"> 
       </div>
     </br></br></br>
       </section>
