@@ -6,25 +6,98 @@
 
     <title>TESTE</title>
 
-    <link href="https://fonts.googleapis.com/css?family=Faster+One" rel="stylesheet">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/styles.css">
+    
     
   </head>
 
-  <body>
+  <header>
+    <nav id="navbar">
+      <ul class="nav-list">
+        <li class="nav-item active">
+          <input id="NULL" name="dropdown-group" value="NULL" type="checkbox"  checked onclick="recarrega()">
+                Sem Stack definida
+              
+        </li>
+        <li class="nav-item active">
+          <input id="C#" name="dropdown-group" value ="C#" type="checkbox" checked onclick="recarrega()">
+          C#
+        </li>
+ 
+           
+        <ul class="nav-list">
+          <li class="nav-item active">
+        <input type="checkbox" name="dropdown-group" id="JAVA" value="JAVA" checked onclick="recarrega()">
+                  Java
+          </li>
 
-      <header>
+
+        <ul class="nav-list">
+          <li class="nav-item active">
+            <input type="checkbox" name="dropdown-group" id="RUBY" value="RUBY" checked onclick="recarrega()">
+                  RUBY
+          </li>
+
+        <ul class="nav-list">
+          <li class="nav-item active">
+            <input type="checkbox" name="dropdown-group" id="HTML" value="HTML" checked onclick="recarrega()">
+                HTML
+          </li>
+
+        <ul class="nav-list">
+          <li class="nav-item active">
+            <input type="checkbox" name="dropdown-group" id="CSS" checked onclick="recarrega()">
+                  CSS
+          </li>
+
+        <ul class="nav-list">
+          <li class="nav-item active">
+        <input type="checkbox" name="dropdown-group" id="JAVASCRIPT" value= "JAVASCRIPT" checked onclick="recarrega()">
+                  JAVASCRIPT 
+          </li>
+                    </nav>
+
+
+            <label class="dropdown-option">
+              <input type="checkbox" id="ISSUES" value= "TEM ISSUES"  onclick="recarrega()">
+              Apenas com issues
+            </br>
+            </label>  
+            <label class="dropdown-option">
+              <input type="checkbox" id="FORK" value= "fork"  onclick="recarrega()">
+              Apenas com fork
+            </br>
+            </label> 
+            <label class="dropdown-option">
+              <input type="button" id="ALFABETICA" value= "Ordem Alfabetica"  onclick="ordenarAlfa()">
+              </br>
+            </label> 
+            <label class="dropdown-option">
+              <input type="button" id="DATA" value= "Ordem por data"  onclick="ordenarData()">
+              </br>
+            </label> 
+          
 
       </header>
 
-      <section id="section1">
-        Filtrar por: <input type="search" id="pesquisa" oninput="recarrega()"> 
-        <button type="button" onclick="limpar()">Filtrar</button>
+      <br id="section1">
+      
 
+    </br>
+
+   
+      <div>
+        Pesquisar por: <input type="search" id="pesquisa" oninput="recarrega()"> 
+      </div>
+    </br></br></br>
       </section>
+      
       <section id="section2">
  
 
       </section>
+      
     <script>
     async function populate() {
 
@@ -47,25 +120,35 @@
       section.id = `section2`;
       
       for (const repo of obj) {
-        const myArticle = document.createElement('article');
-        const myH2 = document.createElement('h2');
-        const myPara1 = document.createElement('p');
-        const myPara2 = document.createElement('p');
-        const myPara3 = document.createElement('p');
-        const myList = document.createElement('ul');
-
-        myH2.textContent = repo.name;
-        myPara1.textContent = `Repo Name: ${repo.name}`;
-        myPara2.textContent = `Clone Url: ${repo.clone_url}`;
-        myPara3.textContent = `Pushed at: ${repo.pushed_at}`;
+        let language = repo.language;
+        if (language == null)
+          language="NULL";
+        else
+          language = language.toUpperCase();
+        let checkBox = document.getElementById(language);
+        console.log(repo.name);
+        console.log(checkBox);
+        if (checkBox.checked == true){
+        const myArticle = document.createElement('tr');
+        //const myH2 = document.createElement('h4');
+        const myPara1 = document.createElement('td');
+        const myPara2 = document.createElement('td');
+        const myPara3 = document.createElement('td');
+        //const myList = document.createElement('ul');
+        //myH2.textContent = repo.name;
+        myPara1.textContent = `Repositório: ${repo.name}`;
+        myPara2.textContent = `Url: ${repo.clone_url}`;
+        myPara3.textContent = `Commit em: ${repo.pushed_at}`;
         myArticle.className = `article`;
         myArticle.id = `${repo.name}`.toUpperCase();
-        myArticle.appendChild(myH2);
+        //myArticle.appendChild(myH2);
         myArticle.appendChild(myPara1);
         myArticle.appendChild(myPara2);
         myArticle.appendChild(myPara3);
-        myArticle.appendChild(myList);
+        //myArticle.appendChild(myList);
         section.appendChild(myArticle);
+        
+      }
       }
     }
     function limpar(){
@@ -83,7 +166,34 @@
     } 
        
       }
+      function ordenarAlfa(){
+        Repositories = Repositories.sort(function (a, b) {
+            if (a.name > b.name) {
+              return 1;
+            }
+            if (a.name < b.name) {
+              return -1;
+            }
+            // a must be equal to b
+            return 0;
+          });
+          recarrega();
+      }
+      function ordenarData(){
+        Repositories = Repositories.sort(function (a, b) {
+            if (a.pushed_at > b.pushed_at) {
+              return 1;
+            }
+            if (a.pushed_at < b.pushed_at) {
+              return -1;
+            }
+            // a must be equal to b
+            return 0;
+          });
+          recarrega();
+      } 
       function recarrega() {
+        
         const section = document.getElementById('section2');
         let filhos = section.childNodes;
         for( i = filhos.length - 1; i >= 0; i-- ) {
@@ -92,32 +202,53 @@
           }
         }
 
-        const myArticle = document.createElement('article');
+        
         for (const repo of Repositories) {
-          if(repo.name.toUpperCase()
-          .startsWith(document.getElementById("pesquisa")
-          .value.toUpperCase())){
-            const myH2 = document.createElement('h2');
-            const myPara1 = document.createElement('p');
-            const myPara2 = document.createElement('p');
-            const myPara3 = document.createElement('p');
-            const myList = document.createElement('ul');
+        const myArticle = document.createElement('tr');
+        let language = repo.language;
+        if (language == null)
+          language="NULL";
+        else
+          language = language.toUpperCase();
+        
+        let checkBox = document.getElementById(language);
+        if (checkBox.checked == true){
+          let issues = document.getElementById("ISSUES");
+          if (issues.checked == true && repo.open_issues_count <0){
+          }
+          else if((issues.checked == true && repo.open_issues_count >0) || (issues.checked == false)) {
+            let fork = document.getElementById("FORK");
+            if ((fork.checked == true && repo.forks_count > 0) || (fork.checked == false)){
+              if(repo.name.toUpperCase()
+              .startsWith(document.getElementById("pesquisa")
+              .value.toUpperCase())){
+                //const myH2 = document.createElement('h2');
+                const myPara1 = document.createElement('td');
+                const myPara2 = document.createElement('td');
+                const myPara3 = document.createElement('td');
+                //const myList = document.createElement('ul');
 
-            myH2.textContent = repo.name;
-            myPara1.textContent = `Repo Name: ${repo.name}`;
-            myPara2.textContent = `Clone Url: ${repo.clone_url}`;
-            myPara3.textContent = `Pushed at: ${repo.pushed_at}`;
-            myArticle.className = `article`;
-            myArticle.id = `${repo.name}`.toUpperCase();
-            myArticle.appendChild(myH2);
-            myArticle.appendChild(myPara1);
-            myArticle.appendChild(myPara2);
-            myArticle.appendChild(myPara3);
-            myArticle.appendChild(myList);
-            section.appendChild(myArticle);
+                //myH2.textContent = repo.name;
+                myPara1.textContent = `Repositório: ${repo.name}`;
+                myPara2.textContent = `Url: ${repo.clone_url}`;
+                myPara3.textContent = `Commit em: ${repo.pushed_at}`;
+                myArticle.className = `article`;
+                myArticle.id = `${repo.name}`.toUpperCase();
+               // myArticle.appendChild(myH2);
+                myArticle.appendChild(myPara1);
+                myArticle.appendChild(myPara2);
+                myArticle.appendChild(myPara3);
+               // myArticle.appendChild(myList);
+                section.appendChild(myArticle);
+            
         }
       }
- 
+      else{
+
+      }
+    }
+  }
+        }
 } 
     
    
