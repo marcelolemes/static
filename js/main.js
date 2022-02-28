@@ -50,7 +50,7 @@
       }
       }
     }
-    function limpar(){
+    function clear(){
     let lista=[]; 
     let x = document.getElementById("section2").querySelectorAll(".article");
     for (var i=0, max=x.length; i < max; i++) {
@@ -65,20 +65,19 @@
     } 
        
       }
-      function ordenarAlfa(){
+      function orderAlfa(){
         Repositories = Repositories.sort(function (a, b) {
-            if (a.name > b.name) {
+            if (a.name.toUpperCase() > b.name.toUpperCase()) {
               return 1;
             }
-            if (a.name < b.name) {
+            if (a.name.toUpperCase() < b.name.toUpperCase()) {
               return -1;
             }
-            // a must be equal to b
             return 0;
           });
-          recarrega();
+          reload();
       }
-      function ordenarData(){
+      function orderDate(){
         Repositories = Repositories.sort(function (a, b) {
             if (a.pushed_at > b.pushed_at) {
               return 1;
@@ -89,9 +88,9 @@
             // a must be equal to b
             return 0;
           });
-          recarrega();
+          reload();
       } 
-      function recarrega() {
+      function reload() {
         
         const section = document.getElementById('section2');
         let filhos = section.childNodes;
