@@ -1,130 +1,128 @@
+
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Home | Trafalgar</title>
+<html>
+  <head>
+    <meta charset="utf-8">
 
-  <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;500;600;700;800;900&display=swap"
-    rel="stylesheet">
+    <title>TESTE</title>
 
-  <link rel="stylesheet" href="css/reset.css">
-  <link rel="stylesheet" href="css/styles.css">
-</head>
-<body>
-  <header>
-    <nav id="navbar">
-      <a href="#">
-        <img src="images/logo.svg" alt="Logo do Trafalgar">
-      </a>
+    <link href="https://fonts.googleapis.com/css?family=Faster+One" rel="stylesheet">
+    
+  </head>
 
-      <ul class="nav-list">
-        <li class="nav-item active">
-          <a href="#">Home</a>
-        </li>
-        <li class="nav-item">
-          <a href="#">Find a doctor</a>
-        </li>
-        <li class="nav-item">
-          <a href="#">Apps</a>
-        </li>
-        <li class="nav-item">
-          <a href="#">Testimonials</a>
-        </li>
-        <li class="nav-item">
-          <a href="#">About us</a>
-        </li>
-      </ul>
-    </nav>
-  </header>
+  <body>
 
-  <main>
-    <section id="main-banner">
+      <header>
+
+      </header>
+
+      <section id="section1">
+        Filtrar por: <input type="search" id="pesquisa" oninput="recarrega()"> 
+        <button type="button" onclick="limpar()">Filtrar</button>
+
+      </section>
+      <section id="section2">
+ 
+
+      </section>
+    <script>
+    async function populate() {
+
+      const requestURL = 'https://api.github.com/users/marcelolemes/repos';
+      const request = new Request(requestURL);
+
+      const response = await fetch(request);
+      const ReposText = await response.text();
+
+      Repositories = JSON.parse(ReposText);
+
+     
+      populateRepos(Repositories);
+	  
+
+    }
+    populate();
+   function populateRepos(obj) {
+      const section = document.querySelector('section');
+      section.id = `section2`;
       
-      <div class="banner-content">
-        <h1>Virtual healthcare for you</h1>
-        
-        <p>Trafalgar provides progressive, and affordable
-        healthcare, accessible on mobile and online
-        for everyone</p>
-        
-        <a href="#">Consult today</a>
-      </div>
+      for (const repo of obj) {
+        const myArticle = document.createElement('article');
+        const myH2 = document.createElement('h2');
+        const myPara1 = document.createElement('p');
+        const myPara2 = document.createElement('p');
+        const myPara3 = document.createElement('p');
+        const myList = document.createElement('ul');
 
-      <div class="banner-image">
-        <img src="images/main-banner.svg" alt="Banner do Trafalgar">
-      </div>
-    </section>
+        myH2.textContent = repo.name;
+        myPara1.textContent = `Repo Name: ${repo.name}`;
+        myPara2.textContent = `Clone Url: ${repo.clone_url}`;
+        myPara3.textContent = `Pushed at: ${repo.pushed_at}`;
+        myArticle.className = `article`;
+        myArticle.id = `${repo.name}`.toUpperCase();
+        myArticle.appendChild(myH2);
+        myArticle.appendChild(myPara1);
+        myArticle.appendChild(myPara2);
+        myArticle.appendChild(myPara3);
+        myArticle.appendChild(myList);
+        section.appendChild(myArticle);
+      }
+    }
+    function limpar(){
+    let lista=[]; 
+    let x = document.getElementById("section2").querySelectorAll(".article");
+    for (var i=0, max=x.length; i < max; i++) {
+      if (x[i].id.startsWith(document.getElementById("pesquisa").value.toUpperCase())){
+        //document.getElementById(x[i].id).style.visibility='visible';
+        lista.push(document.getElementById(x[i].id));
+      }
+      else{
+        //document.getElementById(x[i].id).style.visibility='hidden';
+      }
+      populateRepos(lista);
+    } 
+       
+      }
+      function recarrega() {
+        const section = document.getElementById('section2');
+        let filhos = section.childNodes;
+        for( i = filhos.length - 1; i >= 0; i-- ) {
+          if( filhos[i].className == 'article' ) {
+            section.removeChild( filhos[i] );
+          }
+        }
 
-    <section id="our-services">
-      <div class="section-header">
-        <h2 class="section-title">Our Services</h2>
-        <hr>
+        const myArticle = document.createElement('article');
+        for (const repo of Repositories) {
+          if(repo.name.toUpperCase()
+          .startsWith(document.getElementById("pesquisa")
+          .value.toUpperCase())){
+            const myH2 = document.createElement('h2');
+            const myPara1 = document.createElement('p');
+            const myPara2 = document.createElement('p');
+            const myPara3 = document.createElement('p');
+            const myList = document.createElement('ul');
 
-        <p class="subtitle">We provide to you the best choiches for you. Adjust it to your health needs and make sure your undergo treatment with our highly qualified doctors you can consult with us which type of service is suitable for your health</p>
-      </div>
-
-      <div class="services">
-
-        <!--  Primeiro serviço -->
-        <div class="service">
-          <img src="images/service-1.svg" alt="Serviço 1">
-
-          <h3>Search doctor</h3>
-
-          <p>Choose your doctor from thousands of specialist, general, and trusted hospitals</p>
-        </div>
-
-        <!--  Segundo serviço -->
-        <div class="service">
-          <img src="images/service-2.svg" alt="Serviço 2">
-        
-          <h3>Online pharmacy</h3>
-        
-          <p>Buy your medicines with our mobile application with a simple delivery system</p>
-        </div>
-
-        <!--  Terceiro serviço -->
-        <div class="service">
-          <img src="images/service-3.svg" alt="Serviço 3">
-        
-          <h3>Consultation</h3>
-        
-          <p>Free consultation with our trusted doctors and get the best recomendations</p>
-        </div>
-
-        <!--  Primeiro serviço -->
-        <div class="service">
-          <img src="images/service-1.svg" alt="Serviço 1">
-
-          <h3>Search doctor</h3>
-
-          <p>Choose your doctor from thousands of specialist, general, and trusted hospitals</p>
-        </div>
-
-        <!--  Segundo serviço -->
-        <div class="service">
-          <img src="images/service-2.svg" alt="Serviço 2">
-        
-          <h3>Online pharmacy</h3>
-        
-          <p>Buy your medicines with our mobile application with a simple delivery system</p>
-        </div>
-
-        <!--  Terceiro serviço -->
-        <div class="service">
-          <img src="images/service-3.svg" alt="Serviço 3">
-        
-          <h3>Consultation</h3>
-        
-          <p>Free consultation with our trusted doctors and get the best recomendations</p>
-        </div>
-
-      </div>
-    </section>
-  </main>
-
-  <footer></footer>
-</body>
+            myH2.textContent = repo.name;
+            myPara1.textContent = `Repo Name: ${repo.name}`;
+            myPara2.textContent = `Clone Url: ${repo.clone_url}`;
+            myPara3.textContent = `Pushed at: ${repo.pushed_at}`;
+            myArticle.className = `article`;
+            myArticle.id = `${repo.name}`.toUpperCase();
+            myArticle.appendChild(myH2);
+            myArticle.appendChild(myPara1);
+            myArticle.appendChild(myPara2);
+            myArticle.appendChild(myPara3);
+            myArticle.appendChild(myList);
+            section.appendChild(myArticle);
+        }
+      }
+ 
+} 
+    
+   
+          
+    
+    </script>
+  </body>
 </html>
