@@ -54,7 +54,7 @@
     let lista=[]; 
     let x = document.getElementById("section2").querySelectorAll(".article");
     for (var i=0, max=x.length; i < max; i++) {
-      if (x[i].id.startsWith(document.getElementById("pesquisa").value.toUpperCase())){
+      if (x[i].id.includes(document.getElementById("pesquisa").value.toUpperCase())){ //Ajustado para includes ao invés de startWith
         //document.getElementById(x[i].id).style.visibility='visible';
         lista.push(document.getElementById(x[i].id));
       }
@@ -118,7 +118,7 @@
             let fork = document.getElementById("FORK");
             if ((fork.checked == true && repo.forks_count > 0) || (fork.checked == false)){
               if(repo.name.toUpperCase()
-              .startsWith(document.getElementById("pesquisa")
+              .includes(document.getElementById("pesquisa") //Ajustado para includes ao invés de startWith
               .value.toUpperCase())){
                 //const myH2 = document.createElement('h2');
                 const myPara1 = document.createElement('td');
